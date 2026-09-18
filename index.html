@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Grade Calculator</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #eef4ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: purple;
+      padding: 20px;
+      width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px gray;
+      text-align: center;
+    }
+    input, select {
+      width: 95%;
+      padding: 8px;
+      margin: 5px 0;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: none;
+      margin: 8px auto;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h2>Student Grade Calculator</h2>
+
+  <!-- Student Info -->
+  <input type="text" id="name" placeholder="Student Name">
+  <input type="text" id="roll" placeholder="Roll Number">
+  <select id="branch">
+    <option value="">Select Branch</option>
+    <option>CSE</option>
+    <option>IT</option>
+    <option>ECE</option>
+    <option>ME</option>
+    <option>CE</option>
+    <option>EEE</option>
+  </select>
+  <select id="semester">
+    <option value="">Select Semester</option>
+    <option>Semester 1</option>
+    <option>Semester 2</option>
+    <option>Semester 3</option>
+    <option>Semester 4</option>
+    <option>Semester 5</option>
+    <option>Semester 6</option>
+  </select>
+
+  <!-- Photo Upload -->
+  <input type="file" accept="image/*" onchange="loadPhoto(event)">
+  <img id="photo">
+
+  <!-- Subjects & Marks -->
+  <input type="text" placeholder="Subject 1 Name" id="sub1Name">
+  <input type="number" placeholder="Marks" id="s1">
+  <input type="text" placeholder="Subject 2 Name" id="sub2Name">
+  <input type="number" placeholder="Marks" id="s2">
+  <input type="text" placeholder="Subject 3 Name" id="sub3Name">
+  <input type="number" placeholder="Marks" id="s3">
+  <input type="text" placeholder="Subject 4 Name" id="sub4Name">
+  <input type="number" placeholder="Marks" id="s4">
+  <input type="text" placeholder="Subject 5 Name" id="sub5Name">
+  <input type="number" placeholder="Marks" id="s5">
+
+  <button onclick="calculate()">Calculate Result</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  // Photo Preview
+  function loadPhoto(event) {
+    var img = document.getElementById("photo");
+    img.src = URL.createObjectURL(event.target.files[0]);
+    img.style.display = "block";
+  }
+
+  // Calculate Result
+  function calculate() {
+    // Student Info
+    var name = document.getElementById("name").value;
+    var roll = document.getElementById("roll").value;
+    var branch = document.getElementById("branch").value;
+    var sem = document.getElementById("semester").value;
+
+    // Subjects & Marks
+    var sub1 = document.getElementById("sub1Name").value;
+    var sub2 = document.getElementById("sub2Name").value;
+    var sub3 = document.getElementById("sub3Name").value;
+    var sub4 = document.getElementById("sub4Name").value;
+    var sub5 = document.getElementById("sub5Name").value;
+
+    var s1 = Number(document.getElementById("s1").value);
+    var s2 = Number(document.getElementById("s2").value);
+    var s3 = Number(document.getElementById("s3").value);
+    var s4 = Number(document.getElementById("s4").value);
+    var s5 = Number(document.getElementById("s5").value);
+
+    // Total & Percentage
+    var total = s1 + s2 + s3 + s4 + s5;
+    var percentage = total / 5;
+
+    // Grade & Status
+    var grade, status;
+    if (percentage >= 75) {
+      grade = "A";
+      status = "Pass";
+    } else if (percentage >= 60) {
+      grade = "B";
+      status = "Pass";
+    } else if (percentage >= 40) {
+      grade = "C";
+      status = "Pass";
+    } else {
+      grade = "F";
+      status = "Fail";
+    }
+
+    // Display Result
+    document.getElementById("result").innerHTML =
+      "<strong>Name:</strong> " + name +
+      "<br><strong>Roll No:</strong> " + roll +
+      "<br><strong>Branch:</strong> " + branch +
+      "<br><strong>Semester:</strong> " + sem +
+      "<br><br><strong>Subjects & Marks:</strong><br>" +
+      sub1 + ": " + s1 + "<br>" +
+      sub2 + ": " + s2 + "<br>" +
+      sub3 + ": " + s3 + "<br>" +
+      sub4 + ": " + s4 + "<br>" +
+      sub5 + ": " + s5 + "<br><br>" +
+      "<strong>Total Marks:</strong> " + total +
+      "<br><strong>Percentage:</strong> " + percentage.toFixed(2) + "%" +
+      "<br><strong>Grade:</strong> " + grade +
+      "<br><strong>Status:</strong> " + status;
+  }
+</script>
+</body>
+</html>
